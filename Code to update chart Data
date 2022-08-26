@@ -1,0 +1,26 @@
+let updateChartData = () => {
+if (renderQuestions[renderQuestionNumber].length > 80) {
+displayChart.options.title.text =
+`${renderQuestions[renderQuestionNumber].substr(0, 80)}...`;
+}
+else {
+displayChart.options.title.text =
+`${renderQuestions[renderQuestionNumber]}`;
+}
+displayChart.data.labels = [];
+displayChart.data.datasets[0].data = []
+// //console.log(displayChart.data.labels)
+renderOptions[renderQuestionNumber].forEach((ele, index)
+=> {
+if (ele["option"].length > 30) {
+displayChart.data.labels[index] =
+ele["option"].substr(0, 30) + "...";
+}
+else {
+displayChart.data.labels[index] = ele["option"]
+}
+displayChart.data.datasets[0].data[index] =
+ele["stat"];
+})
+displayChart.update();
+}
