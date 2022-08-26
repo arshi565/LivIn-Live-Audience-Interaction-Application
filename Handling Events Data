@@ -1,0 +1,61 @@
+let handleEventDeets = (event_id, action_id) => {
+ prevEventsDeetsDiv.classList.add("show-action")
+ historyGrid.classList.remove("show-action");
+ iconsDiv.classList.remove("show-action")
+ //console.log(event_id, action_id)
+ var requestOptions = {
+ method: 'GET',
+ redirect: 'follow'
+ };
+ fetch("https://mighty-sea62531.herokuapp.com/api/actions/getActiondetail/" + action_id,
+requestOptions)
+ .then(response => {
+ if (!response.ok) {
+ throw Error(response.statusText);
+ }
+ return response.json();
+ })
+ .then(result => {
+ //console.log(result);
+ event_type = result["action_type"];
+ feedbackDiv.classList.remove("show");
+ feedbackDiv.innerHTML = '';
+ if (result["Questions"].length == 0) {
+ document.querySelector(".actionbuttons").style.display = "none";
+ displayChart.destroy();
+ feedbackDiv.classList.add("show")
+ feedbackDiv.innerHTML = '<h1 style = "text-align:
+center; margin-top: 20vh;">There are no questions in this
+action</h1>'
+ }
+ else {
+ document.querySelector(".actionbuttons").removeAttribute("style"); document.querySele
+ctor(".feedback-history").innerHTML = "";
+ result["Questions"].forEach((ele) => {
+ renderQuestions.push(ele["name"])
+ renderOptions.push(ele["options"]);
+ renderCorrect.push(ele["correct"]);
+ })
+ if (renderQuestions.length == 1) {
+ renderNext.classList.add("disable-btn")
+ }
+ if (result["action_type"] == "Feedback") {
+ actionGraphDiv.classList.remove("show")
+
+displayChart.destroy();
+ feedbackDiv.classList.add("show")
+ renderFeedback();
+ }
+ else {
+ feedbackDiv.classList.remove("show")
+ actionGraphDiv.classList.add("show")
+ renderChart();
+updateChartData();
+ }
+ }
+ })
+ .catch(error => {
+ console.log('error', error);
+ masterErrorHandler(error);
+ });
+}
