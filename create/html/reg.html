@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --main-color: rgb(40, 131, 251);
+            --header: 30px;
+        }
+
+        * {
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+        }
+
+        body {
+            background-color: rgb(245, 245, 245);
+            text-align: center;
+            margin: 0;
+
+        }
+
+        .container {
+            min-height: 70vh;
+        }
+
+        p {
+            line-height: 1.4;
+            font-size: 1.15rem;
+            font-weight: 100 !important;
+            color: rgba(0, 0, 0, 0.74);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: bolder;
+            margin-bottom: var(--header);
+        }
+
+        .right-feathers {
+            position: absolute;
+            right: 0;
+            top: 0;
+            overflow: hidden;
+        }
+
+        .right-feathers>img {
+            position: relative;
+            left: 4.6vw;
+            width: 20vw;
+            top: -2.5vw;
+        }
+
+        .left-feathers>img {
+            position: relative;
+            width: 20vw;
+            left: -5vw;
+            top: -3vw;
+        }
+
+        .left-feathers {
+            position: absolute;
+            left: 0;
+            top: 0;
+            overflow: hidden;
+        }
+
+        .main-logo {
+            margin: 30px auto;
+            margin-bottom: 50px;
+        }
+
+        .main-logo>img {
+            width: 12.5vw;
+        }
+
+        .about {
+            width: 60%;
+            margin: 30px auto;
+            margin-bottom: 90px;
+        }
+
+        button::-moz-focus-inner {
+            border: 0;
+        }
+
+        .sections {
+            position: relative;
+            display: grid;
+            grid-template-columns: 50% 50%;
+            width: 90%;
+            margin: 30px auto;
+            margin-bottom: 90px;
+        }
+
+        .sections>div>p {
+            width: 60%;
+            margin: auto;
+            margin-bottom: 40px;
+        }
+
+        .sections>div>h1 {
+            margin-bottom: 20px;
+        }
+
+        .sections>div:first-child {
+            border-right: rgb(97, 165, 255) solid 1px;
+        }
+
+        .sections>div:last-child {
+
+            border-left: rgb(40, 131, 251) solid 1px;
+        }
+
+        .main-button {
+            min-width: 30%;
+            background-color: var(--main-color);
+            padding: 12px 4px;
+            border: none;
+            color: white;
+            font-weight: 500;
+            font-size: 1.2rem;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .features {
+            position: relative;
+            width: 70%;
+            margin: 30px auto;
+        }
+
+        .features-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(3, 33.3%);
+            margin: 40px auto;
+        }
+
+
+        .footer {
+            background-color: white;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 50% 50%;
+            justify-items: left;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .footer p {
+            margin-bottom: 5px;
+        }
+
+        .right-section {
+            justify-self: right;
+            padding-right: 40px;
+        }
+
+        .right-section>img {
+            height: 5vh;
+            margin: 0 auto;
+        }
+
+        .left-section {
+            padding-left: 40px;
+        }
+
+        .circle>img {
+            position: relative;
+            margin: auto;
+            width: 50px;
+            height: 100%;
+
+        }
+
+        strong {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .main {
+            position: relative;
+            width: 60%;
+            background-color: white;
+            margin: auto;
+            padding: 100px 0;
+            border-radius: 30px;
+            box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.05), 5px 5px 15px rgba(0, 0, 0, 0.2);
+
+            margin-bottom: 30px;
+        }
+
+        .main {
+            display: grid;
+            grid-template-areas: "h""l1""i1""l2""i2""l3""i3""but""a";
+            justify-items: center;
+        }
+
+        .main>label {
+            margin-bottom: 30px;
+            font-size: 1.4rem;
+        }
+
+        .main>h1 {
+            margin: 0 auto 60px auto;
+        }
+
+        .main>input {
+            padding: 14px 0 14px 10px;
+            border: solid rgb(40, 131, 251) 1.5px;
+            border-radius: 5px;
+            box-shadow: rgb(40, 131, 251);
+            outline: none;
+            width: 70%;
+            margin: 0 auto 40px auto;
+        }
+
+        .main>h1 {
+            grid-area: h;
+        }
+
+        .main>button {
+            margin-top: 20px;
+            grid-area: but;
+            border: none;
+        }
+
+        .l1 {
+            grid-area: l1;
+        }
+
+        .l2 {
+            grid-area: l2;
+        }
+
+        .l3 {
+            grid-area: l3;
+        }
+
+        #name {
+            grid-area: i1;
+        }
+
+        #email {
+            grid-area: i2;
+        }
+
+        #pass {
+            grid-area: i3;
+        }
+
+        .main>a {
+            grid-area: a;
+            margin-top: 10px;
+        }
+
+
+
+        .circle {
+            position: relative;
+            background-color: white;
+            width: 90px;
+            height: 90px;
+            padding: 10px;
+            border-radius: 200px;
+            border: 2px solid var(--main-color);
+            margin: 20px auto;
+        }
+
+        #Hermes {
+            /* fill: black; */
+            font-weight: 900;
+            font-size: 2.7rem
+        }
+
+        ::-webkit-scrollbar {
+            background-color: #f5f5f5;
+            width: 9px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: rgb(40, 131, 251);
+        }
+
+        .participate-btn {
+            min-width: 118px;
+        }
+
+
+        .loading-gif {
+            height: 1.0rem;
+            width: auto;
+            background-color: transparent;
+            object-fit: scale-down;
+            overflow: hidden;
+        }
+
+
+
+        @media(max-width: 600px) {
+            body {
+                min-height: calc(var(--vh, 1vh) * 100);
+            }
+
+            .main-logo {
+                /* height: auto; */
+                text-align: center;
+            }
+
+            .main-logo>svg {
+                height: 50px;
+            }
+
+            p {
+                line-height: 1.7;
+                font-size: 1.1rem;
+                font-weight: 100 !important;
+                color: rgba(0, 0, 0, 0.74);
+            }
+
+            h1 {
+                font-size: 2.2rem;
+                font-weight: bolder;
+                margin-bottom: var(--header);
+            }
+
+            .about {
+                width: 90%;
+            }
+
+            .footer {
+                grid-template-columns: none;
+                grid-template-rows: 50% 50%;
+                justify-items: center;
+            }
+
+            .right-section {
+                padding: 0;
+                justify-self: center;
+                text-align: center;
+            }
+
+            .main {
+                width: 95%;
+                margin-bottom: 30px;
+            }
+
+            .left-section {
+                padding: 0;
+                justify-self: center;
+                text-align: center;
+            }
+
+            .right-section>img {
+                height: auto;
+                width: 70%;
+            }
+
+            .sections {
+                grid-template-columns: none;
+                grid-template-rows: repeat(2, 50%);
+            }
+
+            .sections>div:first-child {
+                border-right: none;
+                padding-bottom: 50px;
+                border-bottom: rgb(40, 131, 251) solid 1px;
+            }
+
+            .sections>div:last-child {
+                border-left: none;
+                padding-top: 10px;
+                border-top: none;
+            }
+
+            .main-button {
+                width: 60%;
+            }
+
+
+            .right-feathers>img {
+                width: 30vw;
+                left: 5vw;
+            }
+
+            .left-feathers>img {
+                width: 30vw;
+            }
+
+            .ele {
+                margin: 20px 0;
+            }
+
+            .sections>div>p {
+                width: 90%;
+                margin: auto;
+                margin-bottom: 40px;
+            }
+
+
+            .main-logo>img {
+                width: 41vw;
+            }
+
+            .features-grid {
+                grid-template-columns: auto;
+            }
+
+            .circle>img {
+                height: 100%;
+                width: 60px;
+            }
+
+        }
+
+        .Opt-match {
+            border: solid red 1.5px !important;
+
+        }
+
+        .Opt-match::placeholder {
+            color: red;
+        }
+    </style>
+    <link rel="icon" type="image/png" href="../img/favicon.png">
+
+    <title>Hermes | Registration</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="right-feathers">
+            <img src="../img/right_feathers.png" alt="#">
+        </div>
+        <div class="left-feathers">
+            <img src="../img/left_feathers.png" alt="#">
+        </div>
+        <div class="main-logo" data-aos="zoom-in" data-aos-delay="200" data-aos-once="true">
+            <img src="../img/hermes-logo.png" alt="Logo">
+        </div>
+        <div class="main">
+            <h1>Register to Create an Event!</h1>
+            <label for="name" class="l1">Name</label>
+            <input type="text" id="name" placeholder="Your Name" required>
+            <label for="email" class="l2">Email</label>
+            <input type="email" id="email" placeholder="Email" required>
+            <label for="pass" class="l3">Password</label>
+            <input type="password" id="pass" placeholder="Password" required>
+            <button class="main-button" type="submit" id="reg">Register!</button>
+            <a href="main.html">Already have an Account? Click here</a>
+        </div>
+    </div>
+    <script>
+        if (window.innerWidth < 800) {
+            ok = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${ok}px`);
+        }
+        let addLoader = (button) => {
+
+            button.style.width = button.offsetWidth + "px";
+            /* button.style.height = button.offsetHeight + "px"; */
+            button.style.overflow = "hidden";
+            button.innerHTML = '<img src="../img/loading.gif" alt="" class = "loading-gif">'
+        }
+        let removeLoader = (button, text) => {
+            button.innerHTML = text;
+            button.removeAttribute("style");
+        }
+
+        function validateEmail(email) {
+            const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+
+        let but = document.querySelector("#reg");
+
+
+        let email = document.querySelector("#email");
+        let pass = document.querySelector("#pass");
+        let nam = document.querySelector("#name");
+
+
+        let okay = () => {
+
+            email.value = "";
+            nam.value = "";
+            pass.value = "";
+            email.placeholder = "Email";
+            pass.placeholder = "Password";
+            nam.placeholder = "Your Name";
+            email.classList.remove("Opt-match")
+
+            pass.classList.remove("Opt-match")
+
+            nam.classList.remove("Opt-match")
+            but.innerHTML = "Register!"
+            but.style.background = "rgb(40, 131, 251)";
+            but.removeEventListener("click", okay);
+            but.addEventListener("click", nice)
+        }
+
+        let nice = (e) => {
+            let ok = true;
+            let a = 0;
+
+
+            email.placeholder = "Email";
+            pass.placeholder = "Password";
+            nam.placeholder = "Your Name";
+            email.classList.remove("Opt-match")
+
+            pass.classList.remove("Opt-match")
+
+            nam.classList.remove("Opt-match")
+
+            if (email.value == "") {
+                email.classList.add("Opt-match")
+                email.placeholder = "Valid Email required!"
+                a++;
+            }
+            if (nam.value == "") {
+                nam.classList.add("Opt-match")
+                nam.placeholder = "A Name is required!"
+                a++;
+            }
+
+            if (pass.value == "") {
+                pass.classList.add("Opt-match")
+                pass.placeholder = "A Password is required!"
+                a++;
+            }
+            if (pass.value.length < 8 && pass.value != "") {
+                pass.classList.add("Opt-match")
+                pass.value = "";
+                pass.placeholder = "Min. 8 characters"
+                a++;
+            }
+
+            console.log(validateEmail(email.value))
+
+            if (!validateEmail(email.value) && email.value != "") {
+                email.classList.add("Opt-match")
+                email.value = "";
+                email.placeholder = "Valid Email required!"
+                a++;
+            }
+
+
+            if (a != 0) {
+                return;
+            }
+
+            addLoader(but);
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({ "name": nam.value, "email": email.value, "password": pass.value });
+            console.log(raw)
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://mighty-sea-62531.herokuapp.com/api/user/register", requestOptions)
+                .then(response => {
+                    console.log(response)
+                    if (!response.ok) {
+                        ok = false;
+                    }
+                    return response.json();
+                })
+                .then(result => {
+
+                    console.log(result);
+                    if (ok == false) {
+                        throw result;
+                        return;
+                    }
+                    let res = result;
+                    if (res["message"]) {
+
+
+                        removeLoader(but, `${res["message"]}! Click to try again!`)
+                        but.style.background = "red";
+
+                        but.removeEventListener("click", nice);
+                        but.addEventListener("click", okay);
+                        return;
+                    }
+                    else {
+                        removeLoader(but, "Registration Successful!")
+                        but.style.background = "lightgreen";
+                        setTimeout(() => {
+                            window.location.href = "main.html"
+                        }, 1000)
+                    }
+
+                })
+                .catch(fin => {
+                    console.log('error', fin)
+                    console.log(fin["message"])
+                    if (fin["message"]) {
+
+
+                        removeLoader(but, `${fin["message"]}! Click to try again!`)
+                        but.style.background = "red";
+
+                        but.removeEventListener("click", nice);
+                        but.addEventListener("click", okay);
+                        return;
+                    }
+                    removeLoader(but, "Error! Click to retry!");
+                    but.style.background = "red";
+                    but.removeEventListener("click", nice);
+                    but.addEventListener("click", () => {
+                        location.reload();
+                    })
+                });
+        }
+        but.addEventListener("click", nice);
+
+
+
+    </script>
+</body>
+
+</html>
