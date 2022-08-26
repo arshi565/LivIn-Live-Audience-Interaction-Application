@@ -1,0 +1,2 @@
+# LivIn-Live-Audience-Interaction-Application
+The LivIn project is a live polling website which allows the operating party or organizer to create events while generating unique event codes. Under an established event, the organizer can add multiple polls, quizzes or feedback as found necessary. Other users can participate in the respective event by entering the valid event code and get engaged in the various activities of that event live. As a creator you can create an Event for which the following activities can be added. The users can engage with them in real time.
