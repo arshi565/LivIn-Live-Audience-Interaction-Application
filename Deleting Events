@@ -1,0 +1,28 @@
+let deleteEvent = (id) => {
+ //console.log(id)
+ var myHeaders = new Headers();
+ myHeaders.append("auth-token",
+sessionStorage.getItem("auth_key"));
+ var requestOptions = {
+ method: 'DELETE',
+ headers: myHeaders,
+ redirect: 'follow'
+ };
+ fetch("https://mighty-sea62531.herokuapp.com/api/events/deleteEvent/" + id, requestOptions)
+ .then(response => {
+ if (!response.ok) {
+ throw Error(response.statusText);
+ }
+ return response.json()
+ })
+ .then(result => {
+ //console.log(result);
+ sessionStorage.removeItem("event_id");
+ sessionStorage.removeItem("the_current_event");
+ popup("Event Deleted")
+ })
+ .catch(error => {
+ console.log('error', error)
+ masterErrorHandler(error);
+ });
+}
