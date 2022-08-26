@@ -1,0 +1,325 @@
+let renderEventHistory = (event, actions, just) => {
+ //console.log(event, actions);
+ let quizno = 0;
+ let pollno = 0;
+ let feedbackno = 0;
+ let EventDiv = document.createElement("li");
+ EventDiv.id = event["_id"];
+ let EventHeader = document.createElement("div");
+ EventDiv.classList.add("event-div");
+ EventHeader.classList.add("collapsible-header")
+ EventHeader.classList.add("event");
+ EventHeader.innerHTML = `<p>${event["Name"]}</i></p>
+ <p>${event["Code"]}</p>
+ <p>${event["Participants"]}</p>
+ <p><i class="material-icons
+drop">arrow_drop_down</i></p>`;
+ EventDiv.appendChild(EventHeader)
+ let EventBody = document.createElement("div");
+ EventBody.classList.add("collapsible-body")
+ EventBody.classList.add("action-deets");
+ let ActionsDiv = document.createElement("ul");
+ ActionsDiv.classList.add("collapsible");
+ ActionsDiv.classList.add("expandable")
+ let li1 = document.createElement("li");
+ let li2 = document.createElement("li");
+ let li3 = document.createElement("li");
+ let li1Header = document.createElement("div");
+ let li2Header = document.createElement("div");
+ let li3Header = document.createElement("div");
+
+li1Header.classList.add("collapsible-header")
+ li1Header.classList.add("action-type")
+ li2Header.classList.add("collapsible-header")
+ li2Header.classList.add("action-type")
+ li3Header.classList.add("collapsible-header")
+ li3Header.classList.add("action-type")
+ li1Header.innerHTML = '<strong>Quizzes</strong><i class =
+"material-icons">arrow_drop_down</i>'
+ li2Header.innerHTML = '<strong>Polls</strong><i class =
+"material-icons">arrow_drop_down</i>';
+ li3Header.innerHTML = '<strong>Feedbacks</strong><i class =
+"material-icons">arrow_drop_down</i>';
+ li1.appendChild(li1Header)
+ li2.appendChild(li2Header)
+ li3.appendChild(li3Header)
+ let quizzesDiv = document.createElement("div");
+ let pollsDiv = document.createElement("div");
+ let feedbacksDiv = document.createElement("div");
+ quizzesDiv.classList.add("collapsible-body")
+ quizzesDiv.classList.add("actions")
+ pollsDiv.classList.add("collapsible-body")
+ pollsDiv.classList.add("actions")
+ feedbacksDiv.classList.add("collapsible-body")
+ feedbacksDiv.classList.add("actions")
+ actions.forEach((ele, i) => {
+ if (ele == null) {
+ return;
+ }
+ let outerdiv = document.createElement("div");
+ outerdiv.classList = `outerDiv ${ele["_id"]}`
+ let p = document.createElement("p");
+ p.id = `${ele["_id"]}`
+ p.value = `${event["_id"]}`
+ p.addEventListener("click", () => {
+ feedbackDiv.classList.add("show");
+ feedbackDiv.innerHTML = '<img src="../img/eventloader.gif" class="event-loader" alt="">';
+ handleEventDeets(p.value, p.id);
+ })
+
+if (ele["action_type"] == "Quiz") {
+ quizno++;
+ p.innerHTML = `${ele["title"]}`
+ let icon = document.createElement("i");
+ icon.classList = "material-icons delete-action";
+ icon.innerHTML = "delete";
+ icon.addEventListener("click", () => {
+ deleteAction(ele["_id"], "quiz", event["_id"])
+ })
+ outerdiv.appendChild(p)
+ outerdiv.appendChild(icon)
+ quizzesDiv.appendChild(outerdiv)
+ }
+ if (ele["action_type"] == "Poll") {
+ pollno++;
+ p.innerHTML = `${ele["title"]}`;
+ let icon = document.createElement("i");
+ icon.classList = "material-icons delete-action";
+ icon.innerHTML = "delete";
+ icon.addEventListener("click", () => {
+ deleteAction(ele["_id"], "poll", event["_id"]);
+ })
+ outerdiv.appendChild(p)
+ outerdiv.appendChild(icon);
+ pollsDiv.appendChild(outerdiv)
+ }
+ if (ele["action_type"] == "Feedback") {
+ feedbackno++;
+ p.innerHTML = `${ele["title"]}`;
+ let icon = document.createElement("i");
+ icon.classList = "material-icons delete-action";
+ icon.id = ele["_id"]
+ icon.innerHTML = "delete"
+ icon.addEventListener("click", () => {
+ deleteAction(ele["_id"], "feedback",
+event["_id"]);
+ })
+ outerdiv.appendChild(p)
+ outerdiv.appendChild(icon);
+ feedbacksDiv.appendChild(outerdiv)
+ }
+ })
+
+if (quizno == 0) {
+ let pEmpty = document.createElement("p");
+ pEmpty.innerHTML = "There are no quizzes in this Event";
+ pEmpty.style.color = "red";
+ quizzesDiv.appendChild(pEmpty)
+ }
+ if (pollno == 0) {
+ let pEmpty = document.createElement("p");
+ pEmpty.innerHTML = "There are no polls in this Event";
+ pEmpty.style.color = "red";
+ pollsDiv.appendChild(pEmpty)
+ }
+ if (feedbackno == 0) {
+ let pEmpty = document.createElement("p");
+ pEmpty.innerHTML = "There are no feedbacks in this Event";
+ pEmpty.style.color = "red";
+ feedbacksDiv.appendChild(pEmpty)
+ }
+ li1.appendChild(quizzesDiv);
+ li2.appendChild(pollsDiv)
+ li3.appendChild(feedbacksDiv)
+ ActionsDiv.appendChild(li1)
+ ActionsDiv.appendChild(li2)
+ ActionsDiv.appendChild(li3)
+ let PossibleActions = document.createElement("div")
+ PossibleActions.classList.add("possible-actions")
+ let but1 = document.createElement("button");
+ let but2 = document.createElement("button");
+ let but3 = document.createElement("button");
+ let but4 = document.createElement("button");
+ but1.innerHTML = "+ Add Quiz";
+ but2.innerHTML = "+ Add Poll";
+ but3.innerHTML = "+ Add Feedback";
+ but4.innerHTML = "Delete Event"
+ but1.classList.add("main-button");
+ but2.classList.add("main-button");
+ but3.classList.add("main-button");
+ but4.classList.add("main-button")
+
+but1.addEventListener("click", async () => {
+ await multipleActions().then((res) => {
+ if (res == true) {
+ if (checkEventExistance(event["_id"])) {
+ if (window.confirm("If you wish to work on
+another event, click OK")) {
+ sessionStorage.setItem("event_id",
+event["_id"]);
+ resetActionIds();
+performCheck();
+ActivateAction("quiz");
+ goTo(quizSelector);
+ sessionStorage.setItem("the_current_event"
+, JSON.stringify(event));
+ renderCurrentEventDeets();
+ }
+else {
+ return;
+ }
+ }
+ else {
+ sessionStorage.setItem("event_id",
+event["_id"]);
+ resetActionIds("quiz");
+ performCheck();
+sessionStorage.setItem("the_current_event",
+JSON.stringify(event));
+ renderCurrentEventDeets();
+ActivateAction("quiz");
+ goTo(quizSelector);
+ }
+ }
+ else {
+ return;
+ }
+ })
+ })
+
+but2.addEventListener("click", async () => {
+ await multipleActions().then((res) => {
+ if (res == true) {
+ if (checkEventExistance(event["_id"])) {
+ /* dialog("An Event already exists, you will
+lose that data?"); */
+ if (window.confirm("If you wish to work on
+another event, click OK")) {
+ sessionStorage.setItem("event_id",
+event["_id"]);
+ resetActionIds();
+performCheck();
+ActivateAction("poll");
+ goTo(pollSelector);
+ sessionStorage.setItem("the_current_event"
+, JSON.stringify(event));
+ renderCurrentEventDeets();
+ }
+else {
+ return;
+ }
+ }
+ else {
+ sessionStorage.setItem("event_id",
+event["_id"]);
+ resetActionIds("poll");
+ performCheck();
+sessionStorage.setItem("the_current_event",
+JSON.stringify(event));
+ renderCurrentEventDeets();
+ActivateAction("poll");
+ goTo(pollSelector);
+ }
+ }
+ else {
+ return;
+ }
+ })
+ })
+
+but3.addEventListener("click", async () => {
+ await multipleActions().then((res) => {
+ if (res == true) {
+ if (checkEventExistance(event["_id"])) {
+ /* dialog("An Event already exists, you will
+lose that data?"); */
+ if (window.confirm("If you wish to work on
+another event, click OK")) {
+ sessionStorage.setItem("event_id",
+event["_id"]);
+ resetActionIds();
+performCheck();
+resetFeedbackVariables("okay");
+ sessionStorage.setItem("the_current_event"
+, JSON.stringify(event));
+ renderCurrentEventDeets();
+ActivateAction("feedback");
+ goTo(feedbackSelector);
+ }
+else {
+ return;
+ }
+ }
+ else {
+ sessionStorage.setItem("event_id",
+event["_id"]);
+ resetActionIds("feedback");
+ performCheck();
+resetFeedbackVariables("okay")
+ sessionStorage.setItem("the_current_event",
+JSON.stringify(event));
+ renderCurrentEventDeets();
+ActivateAction("feedback");
+ goTo(feedbackSelector);
+ }
+ }
+ else {
+ return;
+ }
+ })
+ })
+
+but4.addEventListener("click", async () => {
+ if (window.confirm("Are you sure you want to delete this
+event?")) {
+ if (sessionStorage.getItem("event_id") ==
+event["_id"]) {
+ await multipleActions("publish").then((res) => {
+ if (res == true) {
+ deleteEvent(event["_id"]);
+ resetActionIds();
+resetActionVariables();
+resetFeedbackVariables("okay")
+ performCheck();
+document.getElementById(`${event["_id"]}`)
+.remove();
+ resetCreateEvent();
+ }
+else {
+ return;
+ }
+ })
+ }
+ else {
+ deleteEvent(event["_id"])
+ document.getElementById(`${event["_id"]}`).remove(
+);
+ }
+ }
+ else {
+ return;
+ }
+ })
+ PossibleActions.appendChild(but1);
+ PossibleActions.appendChild(but2);
+ PossibleActions.appendChild(but3);
+ PossibleActions.appendChild(but4);
+ EventBody.appendChild(ActionsDiv)
+ EventBody.appendChild(PossibleActions)
+
+EventDiv.appendChild(EventBody);
+ if (just == "just") {
+ historyGrid.insertBefore(EventDiv,
+historyGrid.childNodes[1])
+ }
+ else {
+ historyGrid.appendChild(EventDiv);
+ }
+ var elem =
+document.querySelectorAll('.collapsible.expandable');
+ elem.forEach(ele => {
+ var instance = M.Collapsible.init(ele, {
+ accordion: false
+ });
+ })
+}
